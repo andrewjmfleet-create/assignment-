@@ -64,5 +64,18 @@ int locate_character(char character, int* character_y, int* character_x) {
 
 
 char *load_map(char *filename, int *map_height, int *map_width) {
-    return NULL;
+    FILE *f = fopen(filename, "r");
+    if (f == NULL) {
+        return NULL;
+    }
+    width = *map_width;
+    height = *map_height;
+    map=malloc(width*height*sizeof(char));
+    for (int i=0; i<width; i++) {
+        for (int j=0; j<height; j++) {
+           fscanf(f,"%c",&map[i*width+j]);
+        }
+    }
+    fclose(f);
+    return map;
 }
