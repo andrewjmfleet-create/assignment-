@@ -58,7 +58,47 @@ char sees_player(int player_y, int player_x, int minotaur_y, int minotaur_x) {
     return SEES_NOTHING;
 }
 int move_character(int * y, int * x, char direction, char character) {
-   
+    // check for an invalid direction (not LEFT, RIGHT, UP, or DOWN)
+    // calculate the new coordinates to use on success (store in local variables)
+    // check if the new coordinates point to a wall
+    // at this point, the move is known to be valid (OK direction and not a wall)
+    // remove character from the old position and replace with EMPTY
+    // set character in the new position in map
+    // update the x/y coordinate pointers
+    if (direction!='w' && direction!='a' && direction!='s' && direction!='d') {
+        return MOVED_INVALID_DIRECTION;
+    }else {
+        int newy=*y;
+        int newx=*x;
+
+    switch (direction) {
+        case 'w':
+            newy--;
+            break;
+        case 'a':
+            newx--;
+            break;
+        case 's':
+            newy++;
+            break;
+        case 'd':
+            newx++;
+            break;
+        default:
+            break;
+    }
+        if (map[newy*width+newx]==WALL) {
+            return MOVED_WALL;
+        }else {
+            int tempy=*y;
+            int tempx=*x;
+            map[(tempy*width)+tempx] = EMPTY;
+            map[newy*width+newx] = character;
+            *y=newy;
+            *x=newx;
+            return MOVED_OKAY;
+        }
+    }
 }
 int charge_minotaur(int *y, int *x, int player_y, int player_x, char charge_direction) {
    
