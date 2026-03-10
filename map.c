@@ -61,9 +61,9 @@ int locate_character(char character, int* character_y, int* character_x) {
     // if they were present
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            if (map[i * width + j] == character) {
-                *character_y = i;
-                *character_x = j;
+            if (map[i*width +j] == character) {
+                *character_y =i;
+                *character_x =j;
                 return FOUND_CHARACTER;
             }
         }
